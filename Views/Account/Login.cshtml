@@ -1,0 +1,38 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+<div class="container pt-5 bg-light">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-center mb-3">Login to Place your Orders</h3>
+                    <form class="row g-3" asp-action="Login">
+                        <div class="col-12">
+                            <div class="input-group has-validation">
+                                <input type="text" asp-for="EmailAddress" placeholder="Email or Username" class="form-control"  required />
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <input type="password" asp-for="Password" placeholder="Password" class="form-control" required>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" asp-for="RememberMe" type="checkbox" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100" type="submit">Login</button>
+                        </div>
+                        <div class="col-12">
+                            <p class="small mb-0">Don't have account? <a asp-action="Signup">Create an account</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

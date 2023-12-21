@@ -1,4 +1,5 @@
 using AfroBeachApp.Data;
+using AfroBeachApp.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,23 +13,23 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(connString);
 });
 
-//builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
-//{
-//    options.Password.RequireDigit = false;
-//    options.Password.RequiredLength = 6;
-//    options.Password.RequireNonAlphanumeric = false;
-//    options.Password.RequireUppercase = true;
-//    options.Password.RequireLowercase = true;
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
 
-//}).AddEntityFrameworkStores<AppDbContext>()
-//.AddDefaultTokenProviders();
+}).AddEntityFrameworkStores<AppDbContext>()
+.AddDefaultTokenProviders();
 
-//builder.Services.ConfigureApplicationCookie(options =>
-//{
-//    options.LoginPath = "/Account/Login";
-//    options.AccessDeniedPath = "/Account/AccessDenied";
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/account/login";
+    options.AccessDeniedPath = "/account/accessdenied";
 
-//});
+});
 
 var app = builder.Build();
 
@@ -45,7 +46,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

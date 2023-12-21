@@ -1,0 +1,47 @@
+﻿@inject AppDbContext _context
+@model ApplicationUser
+@{
+    ViewData["Title"] = "Manage System - Create User";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    var roleList = _context.Roles.ToList();
+}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">Create Application User</div>
+            <div class="card-body">
+                <form asp-action="createuser" asp-controller="account" method="post" enctype="multipart/form-data">
+                    <div class="form-group m-3">
+                        <label class="form-label">User Image</label>
+                        <input type="file" name="file" class="form-control" />
+                    </div>
+                    <div class="form-group m-3">
+                        <input asp-for="FirstName" class="form-control" placeholder="First Name" required />
+                    </div>
+                    <div class="form-group m-3">
+                        <input asp-for="LastName" class="form-control" placeholder="Last Name" required />
+                    </div>
+                    <div class="form-group m-3">
+                        <input asp-for="Email" class="form-control" placeholder="Email Address" required />
+                    </div>
+                    <div class="form-group m-3">
+                        <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number" required />
+                    </div>
+                    <div class="form-group m-3">
+                        <select class="form-control" name="roleName" required>
+                            <option>Select Role</option>
+                            @foreach (var item in roleList)
+                            {
+                                <option value="@item.Name">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group m-3">
+                        <button type="submit" class="btn btn-success">Create</button> |
+                        <a class="btn btn-primary" asp-action="users" asp-controller="account">Back To List</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

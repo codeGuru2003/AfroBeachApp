@@ -56,12 +56,13 @@ namespace AfroBeachApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,DeletedBy,DeletedOn,IsDeleted")] ProductCategory productCategory)
+        public async Task<IActionResult> Create(ProductCategory productCategory)
         {
-            if (ModelState.IsValid)
+            if (productCategory != null)
             {
                 _context.Add(productCategory);
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Category created successfully";
                 return RedirectToAction(nameof(Index));
             }
             return View(productCategory);
@@ -83,9 +84,6 @@ namespace AfroBeachApp.Controllers
             return View(productCategory);
         }
 
-        // POST: ProductCategories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,DeletedBy,DeletedOn,IsDeleted")] ProductCategory productCategory)

@@ -1,5 +1,7 @@
 using AfroBeachApp.Data;
+using AfroBeachApp.Interfaces;
 using AfroBeachApp.Models;
+using AfroBeachApp.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,6 +25,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 
 }).AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
+
+builder.Services.AddTransient<ICurrentUserRepository, CurrentUserRepository>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {

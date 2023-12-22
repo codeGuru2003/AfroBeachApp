@@ -70,11 +70,19 @@ namespace AfroBeachApp.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Login));
+        }
+        [Authorize(Roles ="Superadmin, Admin")]
+        [HttpGet]
         public IActionResult Users()
         {
             var users = _userManager.Users.ToList();
             return View(users);
         }
+        [Authorize(Roles = "Superadmin, Admin")]
         [HttpGet]
         public IActionResult CreateUser()
         {
@@ -116,7 +124,7 @@ namespace AfroBeachApp.Controllers
             TempData["Message"] = "Error Creating Record";
             return View(nameof(Users));
         }
-        
+        [Authorize(Roles = "Superadmin, Admin")]
         [HttpGet]
         public IActionResult Roles()
         {
@@ -140,6 +148,7 @@ namespace AfroBeachApp.Controllers
             TempData["Message"] = "Record created successfully";
             return RedirectToAction(nameof(Roles));
         }
+        [Authorize(Roles = "Superadmin, Admin")]
         [HttpGet]
         public async Task<IActionResult> EditRole(string Id)
         {

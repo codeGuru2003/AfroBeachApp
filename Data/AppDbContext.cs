@@ -16,11 +16,15 @@ namespace AfroBeachApp.Data
         }
         //protected override void OnModelCreating(ModelBuilder builder)
         //{
-            
+
 
         //    base.OnModelCreating(builder);
         //}
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<SystemInfo> SystemInfos { get; set; }
         public DbSet<SocialGallery> SocialGalleries { get; set; }
+        
     }
 }

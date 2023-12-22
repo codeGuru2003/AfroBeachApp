@@ -90,7 +90,124 @@ namespace AfroBeachApp.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("AfroBeachApp.Models.SocialMediaType", b =>
+            modelBuilder.Entity("AfroBeachApp.Models.Currency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("ExchangeRate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Currencies");
+                });
+
+            modelBuilder.Entity("AfroBeachApp.Models.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("CurrencyOneAmount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CurrencyOneID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal?>("CurrencyTwoAmount")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("CurrencyTwoID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("Image1")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("Image2")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("Image3")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("Image4")
+                        .HasColumnType("BLOB");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProductCategoryID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrencyOneID");
+
+                    b.HasIndex("CurrencyTwoID");
+
+                    b.HasIndex("ProductCategoryID");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("AfroBeachApp.Models.ProductCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -108,8 +225,7 @@ namespace AfroBeachApp.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("IconName")
-                        .IsRequired()
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
@@ -127,53 +243,36 @@ namespace AfroBeachApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SocialMediaType");
+                    b.ToTable("ProductCategories");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "system",
-                            CreatedOn = new DateTime(2023, 12, 18, 18, 12, 30, 980, DateTimeKind.Local).AddTicks(5132),
-                            IconName = "bi bi-facebook",
-                            IsDeleted = false,
-                            ModifiedBy = "system",
-                            ModifiedOn = new DateTime(2023, 12, 18, 18, 12, 30, 980, DateTimeKind.Local).AddTicks(5151),
-                            Name = "Facebook"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedBy = "system",
-                            CreatedOn = new DateTime(2023, 12, 18, 18, 12, 30, 980, DateTimeKind.Local).AddTicks(5154),
-                            IconName = "bi bi-twitter",
-                            IsDeleted = false,
-                            ModifiedBy = "system",
-                            ModifiedOn = new DateTime(2023, 12, 18, 18, 12, 30, 980, DateTimeKind.Local).AddTicks(5156),
-                            Name = "Twitter"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedBy = "system",
-                            CreatedOn = new DateTime(2023, 12, 18, 18, 12, 30, 980, DateTimeKind.Local).AddTicks(5158),
-                            IconName = "bi bi-instagram",
-                            IsDeleted = false,
-                            ModifiedBy = "system",
-                            ModifiedOn = new DateTime(2023, 12, 18, 18, 12, 30, 980, DateTimeKind.Local).AddTicks(5159),
-                            Name = "Instagram"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedBy = "system",
-                            CreatedOn = new DateTime(2023, 12, 18, 18, 12, 30, 980, DateTimeKind.Local).AddTicks(5162),
-                            IconName = "bi bi-linkedin",
-                            IsDeleted = false,
-                            ModifiedBy = "system",
-                            ModifiedOn = new DateTime(2023, 12, 18, 18, 12, 30, 980, DateTimeKind.Local).AddTicks(5164),
-                            Name = "LinkedIn"
-                        });
+            modelBuilder.Entity("AfroBeachApp.Models.SocialGallery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("Image1")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("Image2")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("Image3")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("Image4")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("Image5")
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("Image6")
+                        .HasColumnType("BLOB");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SocialGalleries");
                 });
 
             modelBuilder.Entity("AfroBeachApp.Models.SystemInfo", b =>
@@ -368,6 +467,29 @@ namespace AfroBeachApp.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("AfroBeachApp.Models.Product", b =>
+                {
+                    b.HasOne("AfroBeachApp.Models.Currency", "CurrencyOne")
+                        .WithMany()
+                        .HasForeignKey("CurrencyOneID");
+
+                    b.HasOne("AfroBeachApp.Models.Currency", "CurrencyTwo")
+                        .WithMany()
+                        .HasForeignKey("CurrencyTwoID");
+
+                    b.HasOne("AfroBeachApp.Models.ProductCategory", "ProductCategory")
+                        .WithMany()
+                        .HasForeignKey("ProductCategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CurrencyOne");
+
+                    b.Navigation("CurrencyTwo");
+
+                    b.Navigation("ProductCategory");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

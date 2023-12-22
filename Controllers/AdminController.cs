@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AfroBeachApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Superadmin, Admin, Manager")]
     public class AdminController : Controller
     {
         public AdminController()

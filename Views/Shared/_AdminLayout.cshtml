@@ -143,7 +143,7 @@
                 </a>
                 <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
-                        <a asp-controller="ProductCategories" asp-action="Index">
+                        <a asp-action="index" asp-controller="productcategories">
                             <i class="bi bi-circle"></i><span>Product Categories</span>
                         </a>
                     </li>
@@ -212,6 +212,7 @@
 
     <!-- Template Main JS File -->
     <script src="~/dashboard/assets/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 

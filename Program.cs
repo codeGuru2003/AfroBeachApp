@@ -42,6 +42,7 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseExceptionHandler("/error");
 app.UseStatusCodePagesWithRedirects("/error/{0}");
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -53,8 +54,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-//app.MapControllerRoute(
-//    name:"Error",
-//    pattern:"/Error/{action=Error}");
+app.MapControllerRoute(
+    name: "Error",
+    pattern: "/Error/{action=Error}");
 
 app.Run();

@@ -51,14 +51,11 @@ namespace AfroBeachApp.Controllers
             return View();
         }
 
-        // POST: Currencies/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Code,ExchangeRate,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,DeletedBy,DeletedOn,IsDeleted")] Currency currency)
+        public async Task<IActionResult> Create(Currency currency)
         {
-            if (ModelState.IsValid)
+             if (currency != null)
             {
                 _context.Add(currency);
                 await _context.SaveChangesAsync();

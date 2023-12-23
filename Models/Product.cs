@@ -7,7 +7,7 @@ namespace AfroBeachApp.Models
     {
         [Key]
         public int Id { get;set; }
-
+        [Display(Name = "Category")]
         public int ProductCategoryID { get; set; }
         [ForeignKey(nameof(ProductCategoryID))]
         public ProductCategory? ProductCategory { get; set;}
@@ -17,6 +17,7 @@ namespace AfroBeachApp.Models
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Short Description")]
         public string ShortDescription { get; set; } = string.Empty;
 
         [Required]
@@ -26,10 +27,11 @@ namespace AfroBeachApp.Models
         public byte[]? Image3 { get; set; }
         public byte[]? Image4 { get; set; }
 
+        [Display(Name = "Currency One")]
         public int? CurrencyOneID { get; set; }
         [ForeignKey(nameof(CurrencyOneID))]
         public Currency? CurrencyOne { get; set; }
-
+        [Display(Name = "Currency One Price")]
         public decimal CurrencyOneAmount { get; set; }
 
         public int? CurrencyTwoID { get; set; }

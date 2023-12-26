@@ -1,0 +1,45 @@
+﻿@model IEnumerable<AfroBeachApp.Models.Product>
+
+@{
+    ViewData["Title"] = "Shop";
+    int count = 10;
+}
+<div class="container pt-3">
+    <h1>Shop</h1>
+
+    @foreach (var item in ViewBag.ProductCategory)
+    {
+        <a asp-action="login" asp-controller="account" class="active btn btn-primary py-2 px-4 d-xl-inline-block rounded-pill">@item.Name</a>
+    }
+
+
+    
+    <div class="row">
+
+        @foreach (var item in Model)
+        {
+            <div class="col-6 col-lg-3 mt-5">
+                <div class="card">
+                    <img src="~/dashboard/assets/img/card.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Afro Roasted Fish</h5>
+                        <p class="card-text">Grill Fish just to please you.</p>
+                        <a class="btn btn-primary rounded-pill w-100">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            
+        }
+        
+        <div class="col-6 col-lg-3 mt-5">
+            <div class="card">
+                <img src="~/dashboard/assets/img/card.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Afro Roasted Fish</h5>
+                    <p class="card-text">Grill Fish just to please you.</p>
+                    <a class="btn btn-primary rounded-pill w-100">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

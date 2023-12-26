@@ -61,10 +61,30 @@ namespace AfroBeachApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductCategoryID,Name,ShortDescription,Description,Image1,Image2,Image3,Image4,CurrencyOneID,CurrencyOneAmount,CurrencyTwoID,CurrencyTwoAmount,CreatedBy,CreatedOn,ModifiedBy,ModifiedOn,DeletedBy,DeletedOn,IsDeleted")] Product product)
+        public async Task<IActionResult> Create(Product product, IFormFile Image1, IFormFile? Image2, IFormFile Image3, IFormFile? Image4)
         {
-            if (ModelState.IsValid)
+            if (product != null)
             {
+                product.Image1 = ProcessImage(Image1);
+                product.Image2 = ProcessImage(Image2);
+                product.Image3 = ProcessImage(Image3);
+                product.Image4 = ProcessImage(Image4);
+
+                var currencyOne = _context.Currencies.FirstOrDefault(x => x.Id == product.CurrencyOneID);
+
+                if (product.CurrencyOneID == 1)
+                {
+                    
+                    product.CurrencyTwoID = 2;
+                    product.CurrencyTwoAmount = product.CurrencyOneAmount * currencyOne.ExchangeRate;
+                }
+                else if(product.CurrencyOneID == 2)
+                {
+                    product.CurrencyTwoID = 1;
+                    product.CurrencyOneAmount = product.CurrencyOneAmount / currencyOne.ExchangeRate;
+                    product.CurrencyTwoAmount = product.CurrencyOneAmount * currencyOne.ExchangeRate;
+                }            
+
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -175,6 +195,18 @@ namespace AfroBeachApp.Controllers
         private bool ProductExists(int id)
         {
           return (_context.Products?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+        private byte[]? ProcessImage(IFormFile? imageFile)
+        {
+            if (imageFile != null && imageFile.Length > 0)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    imageFile.CopyTo(memoryStream);
+                    return memoryStream.ToArray();
+                }
+            }
+            return null;
         }
     }
 }

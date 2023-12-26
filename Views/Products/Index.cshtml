@@ -3,142 +3,48 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 1;
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductCategory)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ShortDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image3)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image4)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CurrencyOne)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CurrencyOneAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CurrencyTwo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CurrencyTwoAmount)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ModifiedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeletedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeletedOn)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductCategory.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShortDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image2)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image3)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image4)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrencyOne.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrencyOneAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrencyTwo.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CurrencyTwoAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeletedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeletedOn)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsDeleted)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-header">List of Products</div>
+            <div class="card-body">
+                <a asp-action="create" asp-controller="products" class="btn btn-primary m-3"><i class="bi bi-plus-circle-fill"></i> Add New Record</a>
+                <div class="table-responsive">
+                    <table class="table table-striped nowrap datatable">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price (USD)</th>
+                                <th>Price (LRD)</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@count</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.ProductCategory.Name</td>
+                                    <td>@item.CurrencyOneAmount.ToString("F2")</td>
+                                    <td>@item.CurrencyTwoAmount?.ToString("F2")</td>
+                                    <td>
+                                        <a asp-action="edit" asp-controller="products" asp-route-Id="@item.Id" class="btn btn-sm btn-warning"><i class="bi bi-pencil-fill"></i></a> |
+                                        <a asp-action="details" asp-controller="products" asp-route-Id="@item.Id" class="btn btn-sm btn-primary"><i class="bi bi-book"></i></a> |
+                                        <a asp-action="delete" asp-controller="products" asp-route-Id="@item.Id" class="btn btn-sm btn-danger"><i class="bi bi-trash-fill"></i></a>
+                                    </td>
+                                </tr>
+                                count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

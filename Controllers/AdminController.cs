@@ -7,12 +7,14 @@ namespace AfroBeachApp.Controllers
     [Authorize(Roles = "Superadmin, Admin, Manager")]
     public class AdminController : Controller
     {
-        public AdminController()
+        private readonly AppDbContext _context;
+        public AdminController(AppDbContext context)
         {
-            
+            _context = context;
         }
         public IActionResult Default()
         {
+            ViewData["productCount"] = _context.Products.Count();
             return View();
         }
     }
